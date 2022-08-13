@@ -2,10 +2,41 @@
   width: 90%;
   margin: 0% 5% 0% 5%;
 }
-nav ul li {
-  position: relative;
-  display: inline;
+.navbar {
+  margin: 0px;
   padding: 0px 20px;
+  width: 100%;
+}
+table{
+  border: 2px solid darkblue;
+}
+td {
+  width: 90%;
+  border: 2px solid darkblue;
+}
+/* @each $header, $size in (
+  h1:2em, h2: 1.5em, h3: 1.2em){
+#{$header}{ font-size:$size;
+}
+} */
+.col1 {
+  width: 5%;
+  border: 2px solid darkblue;
+}
+.col2 {
+  width: 40%;
+  border: 2px solid darkblue;
+}
+.col3 {
+  width: 40%;
+  border: 2px solid darkblue;
+}
+.col4 {
+  width: 10%;
+  border: 2px solid darkblue;
+}
+.form-name{
+ width: 100%;
 }
 h1 {
   padding: 10px 0px 0px 20px;
@@ -22,4 +53,10 @@ input {
   margin: 1% 1% 1% 5%;
   height: 290px;
   width: 90%;
+}
+button {
+  margin: 20px 0px 20px 20px;
+}
+.delete{
+  margin: 10px;
 }
