@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import { useState, useCallback } from 'react';
-import getAllConferences from './request';
+// import getAllConferences from './request';
+import { getAllConferences } from './request';
 
 const useHttp = () => { // дозволяє працювати з асинхронними запитами на сервер
   const [loading, setLoading] = useState(false);
@@ -16,6 +17,7 @@ const useHttp = () => { // дозволяє працювати з асинхро
       }
       // const response = await fetch(url, { method, body, headers });
       const { data } = await getAllConferences();
+      // const { dataE } = await getConferenceById();
 
       // if (!response.ok) {
       // throw new Error(data.message || 'Что-то пошло не так');

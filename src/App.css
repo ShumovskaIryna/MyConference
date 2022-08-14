@@ -1,62 +1,46 @@
-.main {
-  width: 90%;
-  margin: 0% 5% 0% 5%;
+body {
+  margin: 0;
+  font-family: "Acme", sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #fff;
+  background-color: rgb(35, 35, 37);
 }
-.navbar {
-  margin: 0px;
-  padding: 0px 20px;
-  width: 100%;
+h4{
+  color: rgb(154, 180, 250);
+  opacity: 0.8;
 }
-table{
-  border: 2px solid darkblue;
+.container {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-left: 15%;
+    width: 60%;
 }
-td {
-  width: 90%;
-  border: 2px solid darkblue;
-}
-/* @each $header, $size in (
-  h1:2em, h2: 1.5em, h3: 1.2em){
-#{$header}{ font-size:$size;
-}
-} */
-.col1 {
-  width: 5%;
-  border: 2px solid darkblue;
-}
-.col2 {
-  width: 40%;
-  border: 2px solid darkblue;
-}
-.col3 {
-  width: 40%;
-  border: 2px solid darkblue;
-}
-.col4 {
-  width: 10%;
-  border: 2px solid darkblue;
-}
-.form-name{
- width: 100%;
-}
-h1 {
-  padding: 10px 0px 0px 20px;
-}
-label {
+
+.mb-3 {
   position: relative;
-  margin: 15px;
-  top: 5px;
+  width: 50%;
+  padding-top: 10px;
+  margin-left: 30%;
+  align-items: center;
+
+  width: 400px;
+  color: rgb(252, 252, 252);
+  opacity: 0.8;
 }
-input {
-  margin: 10px;
+#titleHelp{
+  position: absolute;
+  width: 400px;
+  color: rgb(252, 252, 252);
+  opacity: 0.4;
 }
-#map {
-  margin: 1% 1% 1% 5%;
-  height: 290px;
-  width: 90%;
+input{
+  position: relative;
+  min-width: 400px;
+  max-width: 450px;
+  margin: 0 auto;
 }
-button {
-  margin: 20px 0px 20px 20px;
-}
-.delete{
-  margin: 10px;
+button{
+margin-left: 20%;
 }

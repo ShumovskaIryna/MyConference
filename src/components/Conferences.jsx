@@ -6,9 +6,7 @@ import Conference from './Conference';
 export default function Conferences(props) {
   const { allConferences } = props;
   return (
-  // <div className="conferences">
     <>
-
       {allConferences.map((conference, index) => (
         <Conference
           key={index}
@@ -17,10 +15,8 @@ export default function Conferences(props) {
       ))
   }
     </>
-  // </div>
   );
 }
-
 Conferences.propTypes = {
   allConferences: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
