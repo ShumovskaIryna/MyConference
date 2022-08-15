@@ -1,21 +1,73 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { FaTrash } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
+import { getConferenceById } from '../request';
 
 export default function DetailConference() {
+  const [inputs, setInputs] = useState({});
+
+  const getConf = useCallback(async () => {
+    const { data } = await getConferenceById('/api/link/', 'GET', null);
+    const { conference: conferenceToSet } = data;
+    setInputs(conferenceToSet);
+  }, [getConferenceById]);
+  useEffect(() => {
+    getConf();
+  }, []);
   return (
     <div>
-      <h4>Detail about conference</h4>
+      <h4>Detail about meeting</h4>
       <form>
-        <table>
+        <table className="table">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Title</th>
-              <th>Datetime</th>
-              <th>Location</th>
-              <th>Country</th>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Datetime</th>
             </tr>
           </thead>
+          <tbody>
+            <tr>
+              <th scope="row">{inputs.id}</th>
+              <td>
+                {inputs.name}
+              </td>
+              <td>{inputs.date}</td>
+            </tr>
+          </tbody>
         </table>
+
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Location</th>
+              <th scope="col">Google Maps</th>
+              <th scope="col"> </th>
+              <th scope="col">Country</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                Latitude
+                {' '}
+                {inputs.location?.lat}
+                {' '}
+                Longitude
+                {' '}
+                {inputs.location?.lng}
+              </td>
+              <td><div id="map" /></td>
+              <td> </td>
+              <td>{inputs.country}</td>
+            </tr>
+          </tbody>
+        </table>
+        <FaTrash
+          className="delete"
+        />
+        <NavLink to="/" className="back right">Back</NavLink>
       </form>
     </div>
   );

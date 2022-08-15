@@ -1,10 +1,12 @@
 import React
 , { useState, useEffect, useCallback }
   from 'react';
+import { NavLink } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
 // import useHttp from '../useHttp';
 import Flatpickr from 'react-flatpickr';
 // import 'flatpickr/dist/themes/dark.css';
+import { FaTrash } from 'react-icons/fa';
 
 import { getConferenceById } from '../request';
 
@@ -24,7 +26,7 @@ export default function EditConference() {
   }, []);
   return (
     <div>
-      <h4>Edit the conference</h4>
+      <h4>Edit meeting</h4>
       <form>
         <div className="container">
           <div className="mb-3">
@@ -60,12 +62,15 @@ export default function EditConference() {
           </div>
 
           <div className="mb-3">
-            <button type="button" className="btn btn-primary btn-lg">
+            {/* <button type="button" className="btn btn-primary btn-lg">
               Save
             </button>
             <button type="button" className="btn btn-secondary btn-lg">
               Back
-            </button>
+            </button> */}
+            <NavLink to="/" className="save">Save</NavLink>
+            <NavLink to="/" className="back">Back</NavLink>
+            <FaTrash className="delete" />
           </div>
         </div>
       </form>

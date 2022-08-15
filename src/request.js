@@ -15,6 +15,20 @@ const getAllConferences = async () => ({
         location: { lat: 47.839984704870645, lng: 35.12596258205736 },
         country: 'Ukraine',
       },
+      {
+        id: '3',
+        name: 'Deadline',
+        date: 'Wed, August 24, 2022',
+        location: { lat: 47.839984704870645, lng: 35.12596258205736 },
+        country: 'Ukraine',
+      },
+      {
+        id: '4',
+        name: 'Nail Course',
+        date: 'Mon, August 15, 2022',
+        location: { lat: 47.839984704870645, lng: 35.12596258205736 },
+        country: 'Ukraine',
+      },
     ],
   },
 });

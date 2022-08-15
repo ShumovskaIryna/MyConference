@@ -24,22 +24,21 @@ export default function ConferenceList() {
       ? <div>LOADING</div>
       : (
         <div>
-          <table className="table table-dark table-striped">
+          <h4>My Meetings</h4>
+          <table className="table">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Title</th>
-                <th>Date</th>
-                <th> </th>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+                <th scope="col"> </th>
               </tr>
             </thead>
-            <tbody>
-              <Conferences
-                allConferences={conferences}
-              />
-            </tbody>
+            <Conferences
+              allConferences={conferences}
+            />
           </table>
-          <NavLink to="conference/create">+ New</NavLink>
+          <NavLink to="conference/create" className="new-conference">+ New</NavLink>
         </div>
       )
   );
