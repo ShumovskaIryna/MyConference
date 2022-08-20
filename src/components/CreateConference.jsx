@@ -1,14 +1,22 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-shadow */
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Flatpickr from 'react-flatpickr';
 import countryList from 'react-select-country-list';
+// import { Wrapper } from '@googlemaps/react-wrapper';
+// import { GoogleMap, Marker } from '@react-google-maps/api';
+import MyCustomMap from './LocationMap';
 
 export default function CreateConference() {
   const options = useMemo(() => countryList().getData(), []);
-  const handleChange = (event) => {
-    console.log(event.target.value);
+  const handleChange = () => {
   };
+
+  const [center, setCenter] = useState({
+    lat: 47.839984704870645,
+    lng: 35.12596258205736,
+  });
 
   return (
     <div>
@@ -51,6 +59,18 @@ export default function CreateConference() {
               <input type="number" className="form-control" id="inputAddress" placeholder="Latitude" />
               <input type="number" className="form-control" id="inputAddress" placeholder="Longitude" />
             </label>
+            <MyCustomMap />
+            <label htmlFor="lat">
+              Latitude
+              <input
+                type="number"
+                id="lat"
+                name="lat"
+                value={center?.lat}
+                onChange={(event) => setCenter({ ...center, lat: Number(event.target.value) })
+  }
+              />
+            </label>
           </div>
           <div className="mb-3">
             <label htmlFor="inputCountry" className="form-label">
@@ -70,9 +90,6 @@ export default function CreateConference() {
           </div>
 
           <div className="mb-3">
-            {/* <button type="button" className="btn btn-primary btn-lg">
-              Save
-            </button> */}
             <NavLink to="/" className="save">Save</NavLink>
             <NavLink to="/" className="back">Back</NavLink>
           </div>

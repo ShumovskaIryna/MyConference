@@ -19,7 +19,6 @@ export default function Conference(props) {
           <NavLink to="conference/:id/detail" className="list">
             {myConference.date}
           </NavLink>
-
         </td>
         <td>
           <NavLink to="conference/:id/edit" className="edit-conference">

@@ -5,9 +5,8 @@ import { NavLink } from 'react-router-dom';
 // import { useParams } from 'react-router-dom';
 // import useHttp from '../useHttp';
 import Flatpickr from 'react-flatpickr';
-// import 'flatpickr/dist/themes/dark.css';
 import { FaTrash } from 'react-icons/fa';
-
+import MyCustomMap from './LocationMap';
 import { getConferenceById } from '../request';
 
 export default function EditConference() {
@@ -53,6 +52,7 @@ export default function EditConference() {
               <input type="number" className="form-control" id="inputAddress" placeholder="Latitude" value={inputs.location?.lat} />
               <input type="number" className="form-control" id="inputAddress" placeholder="Longitude" value={inputs.location?.lng} />
             </label>
+            <MyCustomMap />
           </div>
           <div className="mb-3">
             <label htmlFor="inputCountry" className="form-label">
@@ -62,12 +62,6 @@ export default function EditConference() {
           </div>
 
           <div className="mb-3">
-            {/* <button type="button" className="btn btn-primary btn-lg">
-              Save
-            </button>
-            <button type="button" className="btn btn-secondary btn-lg">
-              Back
-            </button> */}
             <NavLink to="/" className="save">Save</NavLink>
             <NavLink to="/" className="back">Back</NavLink>
             <FaTrash className="delete" />

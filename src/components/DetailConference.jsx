@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { getConferenceById } from '../request';
+import MyCustomMap from './LocationMap';
 
 export default function DetailConference() {
   const [inputs, setInputs] = useState({});
@@ -58,7 +59,9 @@ export default function DetailConference() {
                 {' '}
                 {inputs.location?.lng}
               </td>
-              <td><div id="map" /></td>
+              <td>
+                <MyCustomMap />
+              </td>
               <td> </td>
               <td>{inputs.country}</td>
             </tr>
@@ -67,6 +70,9 @@ export default function DetailConference() {
         <FaTrash
           className="delete"
         />
+        <NavLink to="conference/:id/edit" className="edit-conference">
+          Edit
+        </NavLink>
         <NavLink to="/" className="back right">Back</NavLink>
       </form>
     </div>

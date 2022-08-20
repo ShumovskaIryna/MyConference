@@ -81,6 +81,7 @@ color: rgb(255, 255, 255);
 padding: 10px;
 margin-right: 20px;
 background-color: rgba(154, 180, 250, 0.1);
+border-bottom: 3px solid rgba(154, 180, 250, 0.8);
 color: rgb(154, 180, 250);
 text-decoration: none;
 transition: transform 500ms ease;
@@ -144,4 +145,8 @@ color: rgb(255, 255, 255);
 }
 .right{
     margin-left: 80%;
+}
+.map-container{
+    width: 400px;
+    height: 200px;
 }
