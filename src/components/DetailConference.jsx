@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { getConferenceById } from '../request';
-import MyCustomMap from './LocationMap';
+import GoogleMapCustom from './GoogleMapCustom';
 
 export default function DetailConference() {
   const [inputs, setInputs] = useState({});
@@ -60,7 +60,7 @@ export default function DetailConference() {
                 {inputs.location?.lng}
               </td>
               <td>
-                <MyCustomMap />
+                <GoogleMapCustom />
               </td>
               <td> </td>
               <td>{inputs.country}</td>

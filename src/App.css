@@ -124,7 +124,7 @@ color: rgb(255, 255, 255);
 }
 .delete{
 position: absolute;
-margin-left: -110px;
+margin-left: 80px;
 color: rgb(250, 154, 202);
 transition: transform 500ms ease;
 }
@@ -149,4 +149,13 @@ color: rgb(255, 255, 255);
 .map-container{
     width: 400px;
     height: 200px;
+}
+.delete-list{
+position: absolute;
+color: rgb(250, 154, 202);
+transition: transform 500ms ease;
+}
+.delete-list:hover{
+transform: scale(1.2);
+color: rgb(255, 80, 80);
 }

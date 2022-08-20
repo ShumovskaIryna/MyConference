@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 // import useHttp from '../useHttp';
 import Flatpickr from 'react-flatpickr';
 import { FaTrash } from 'react-icons/fa';
-import MyCustomMap from './LocationMap';
+import GoogleMapCustom from './GoogleMapCustom';
 import { getConferenceById } from '../request';
 
 export default function EditConference() {
@@ -52,7 +52,7 @@ export default function EditConference() {
               <input type="number" className="form-control" id="inputAddress" placeholder="Latitude" value={inputs.location?.lat} />
               <input type="number" className="form-control" id="inputAddress" placeholder="Longitude" value={inputs.location?.lng} />
             </label>
-            <MyCustomMap />
+            <GoogleMapCustom />
           </div>
           <div className="mb-3">
             <label htmlFor="inputCountry" className="form-label">

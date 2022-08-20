@@ -5,6 +5,10 @@ import { FaTrash } from 'react-icons/fa';
 
 export default function Conference(props) {
   const { myConference } = props;
+  const handeldel = (e) => {
+    //  how to delete
+    myConference.removeChild(e.myConference.id);
+  };
   return (
     <tbody>
       <tr>
@@ -25,7 +29,8 @@ export default function Conference(props) {
             Edit
           </NavLink>
           <FaTrash
-            className="delete"
+            className="delete-list"
+            onClick={handeldel}
           />
         </td>
       </tr>

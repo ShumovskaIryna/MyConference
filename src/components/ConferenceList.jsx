@@ -6,7 +6,6 @@ import Conferences from './Conferences';
 export default function ConferenceList() {
   const { request, loading } = useHttp();
   const [conferences, setConferences] = useState([]);
-
   const getConf = useCallback(async () => {
     const fetched = await request('/api/link/', 'GET', null);
     const { conferences: conferencesToSet } = fetched;
@@ -17,11 +16,11 @@ export default function ConferenceList() {
     getConf();
   }, [getConf]);
   if (loading || !conferences?.length) {
-    return <div>LOOOOOOADING</div>;
+    return <div>Loading......</div>;
   }
   return (
     loading
-      ? <div>LOADING</div>
+      ? <div>Loading......</div>
       : (
         <div>
           <h4>My Meetings</h4>
@@ -38,7 +37,7 @@ export default function ConferenceList() {
               allConferences={conferences}
             />
           </table>
-          <NavLink to="conference/create" className="new-conference">+ New</NavLink>
+          <NavLink to="conference/create" className="new-conference">+ New conference</NavLink>
         </div>
       )
   );

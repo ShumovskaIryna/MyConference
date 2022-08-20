@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { GoogleMap, useJsApiLoader, MarkerF } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -8,15 +10,20 @@ const containerStyle = {
   height: '400px',
 };
 
+// const DEFAULT_POSITION = {
+//   lat: -3.745,
+//   lng: -38.523,
+// };
+
 const center = {
   lat: -3.745,
   lng: -38.523,
 };
-const position = {
-  lat: -3.945,
-  lng: -38.923,
-};
-function MyComponent() {
+
+function GoogleMapCustom(props) {
+  const { lat, lng } = props;
+  console.log(props);
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyA69OWMQ-Hpg2G4Cwx5rvnDfAnJRxTKpTQ',
@@ -34,22 +41,35 @@ function MyComponent() {
     setMap(null);
   }, []);
 
+  const shouldShowMarker = lat !== undefined && lng !== undefined;
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
-      zoom={10}
+      zoom={1}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
       { /* Child components, such as markers, info windows, etc. */}
 
-      <MarkerF
-        position={position}
-      />
+      {
+        shouldShowMarker ? (
+          <MarkerF
+            position={{
+              lat: parseInt(lat, 10),
+              lng: parseInt(lng, 10),
+            }}
+          />
+        ) : undefined
+      }
 
     </GoogleMap>
   ) : <div>NOT FOUND</div>;
 }
 
-export default React.memo(MyComponent);
+GoogleMapCustom.propTypes = {
+  lat: PropTypes.number.isRequired,
+  lng: PropTypes.number.isRequired,
+};
+
+export default React.memo(GoogleMapCustom);

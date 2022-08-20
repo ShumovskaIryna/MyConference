@@ -4,20 +4,22 @@ import React, { useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Flatpickr from 'react-flatpickr';
 import countryList from 'react-select-country-list';
-// import { Wrapper } from '@googlemaps/react-wrapper';
-// import { GoogleMap, Marker } from '@react-google-maps/api';
-import MyCustomMap from './LocationMap';
+import GoogleMapCustom from './GoogleMapCustom';
 
 export default function CreateConference() {
   const options = useMemo(() => countryList().getData(), []);
   const handleChange = () => {
   };
-
   const [center, setCenter] = useState({
-    lat: 47.839984704870645,
-    lng: 35.12596258205736,
+    lat: undefined,
+    lng: undefined,
   });
-
+  //     if (userInput.length >= minlength && userInput.length <= maxlength) {
+  //       return true;
+  //     }
+  //     alert(`Please input between ${minlength} and ${maxlength} characters`);
+  //     return false;
+  // }
   return (
     <div>
       <h4>Create a new meeting</h4>
@@ -54,16 +56,12 @@ export default function CreateConference() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="inputAddress" className="form-label">
-              Address
-              <input type="number" className="form-control" id="inputAddress" placeholder="Latitude" />
-              <input type="number" className="form-control" id="inputAddress" placeholder="Longitude" />
-            </label>
-            <MyCustomMap />
+            Address
             <label htmlFor="lat">
-              Latitude
               <input
                 type="number"
+                className="form-control"
+                placeholder="Latitude"
                 id="lat"
                 name="lat"
                 value={center?.lat}
@@ -71,6 +69,22 @@ export default function CreateConference() {
   }
               />
             </label>
+            <label htmlFor="lng">
+              <input
+                type="number"
+                className="form-control"
+                placeholder="Longitude"
+                id="lng"
+                name="lng"
+                value={center?.lng}
+                onChange={(event) => setCenter({ ...center, lng: Number(event.target.value) })
+  }
+              />
+            </label>
+            <GoogleMapCustom
+              lat={center.lat}
+              lng={center.lng}
+            />
           </div>
           <div className="mb-3">
             <label htmlFor="inputCountry" className="form-label">
