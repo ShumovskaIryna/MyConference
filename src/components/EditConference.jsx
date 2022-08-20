@@ -93,8 +93,8 @@ export default function EditConference() {
               />
             </label>
             <GoogleMapCustom
-              lat={inputs.lat}
-              lng={inputs.lng}
+              lat={center.lat}
+              lng={center.lng}
             />
           </div>
           <div className="mb-3">

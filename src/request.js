@@ -49,8 +49,6 @@ const getConferenceById = async () => ({
     },
   },
 });
-
-// export default getAllConferences;
 export {
   getAllConferences,
   getConferenceById,

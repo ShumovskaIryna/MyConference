@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import { useState, useCallback } from 'react';
-// import getAllConferences from './request';
 import { getAllConferences } from './request';
 
 const useHttp = () => { // дозволяє працювати з асинхронними запитами на сервер
