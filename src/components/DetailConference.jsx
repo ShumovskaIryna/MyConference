@@ -6,7 +6,6 @@ import GoogleMapCustom from './GoogleMapCustom';
 
 export default function DetailConference() {
   const [inputs, setInputs] = useState({});
-
   const getConf = useCallback(async () => {
     const { data } = await getConferenceById('/api/link/', 'GET', null);
     const { conference: conferenceToSet } = data;
@@ -78,11 +77,20 @@ export default function DetailConference() {
         </table>
         <FaTrash
           className="delete"
+          // how to delete?
         />
-        <NavLink to="conference/:id/edit" className="edit-conference">
+        <NavLink
+          to="../conference/:id/edit"
+          className="edit-conference"
+        >
           Edit
         </NavLink>
-        <NavLink to="/" className="back right">Back</NavLink>
+        <NavLink
+          to="/"
+          className="back right"
+        >
+          Back
+        </NavLink>
       </form>
     </div>
   );

@@ -42,7 +42,7 @@ const getConferenceById = async () => ({
     conference: {
       id: '1',
       name: 'Birthday Alex Skryhun',
-      date: 'Mon, August 15, 2022',
+      date: 'Sun, August 14, 2022',
       lat: 47.839984704870645,
       lng: 35.12596258205736,
       country: 'Ukraine',

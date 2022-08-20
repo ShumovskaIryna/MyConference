@@ -39,7 +39,12 @@ export default function CreateConference() {
                 maxLength="255"
               />
             </label>
-            <div id="titleHelp" className="form-text">Your title must be min 2, max 255 characters long.</div>
+            <div
+              id="titleHelp"
+              className="form-text"
+            >
+              Your title must be min 2, max 255 characters long.
+            </div>
           </div>
           <div className="mb-3">
             Date
@@ -61,12 +66,12 @@ export default function CreateConference() {
               <input
                 type="number"
                 className="form-control"
-                placeholder="Latitude"
                 id="lat"
                 name="lat"
+                placeholder="Latitude"
                 value={center?.lat}
                 onChange={(event) => setCenter({ ...center, lat: Number(event.target.value) })
-  }
+                }
               />
             </label>
             <label htmlFor="lng">
@@ -78,7 +83,7 @@ export default function CreateConference() {
                 name="lng"
                 value={center?.lng}
                 onChange={(event) => setCenter({ ...center, lng: Number(event.target.value) })
-  }
+                }
               />
             </label>
             <GoogleMapCustom
@@ -103,8 +108,20 @@ export default function CreateConference() {
             </label>
           </div>
           <div className="mb-3">
-            <NavLink to="/" className="save">Save</NavLink>
-            <NavLink to="/" className="back">Back</NavLink>
+            <NavLink
+              to="/"
+              className="save"
+              // some logic to save on backend
+            >
+              Save
+
+            </NavLink>
+            <NavLink
+              to="/"
+              className="back"
+            >
+              Back
+            </NavLink>
           </div>
         </div>
       </form>
