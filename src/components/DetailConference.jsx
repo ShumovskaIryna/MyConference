@@ -29,11 +29,17 @@ export default function DetailConference() {
           </thead>
           <tbody>
             <tr>
-              <th scope="row">{inputs.id}</th>
+              <th
+                scope="row"
+              >
+                {inputs.id}
+              </th>
               <td>
                 {inputs.name}
               </td>
-              <td>{inputs.date}</td>
+              <td>
+                {inputs.date}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -53,14 +59,17 @@ export default function DetailConference() {
               <td>
                 Latitude
                 {' '}
-                {inputs.location?.lat}
+                {inputs.lat}
                 {' '}
                 Longitude
                 {' '}
-                {inputs.location?.lng}
+                {inputs.lng}
               </td>
               <td>
-                <GoogleMapCustom />
+                <GoogleMapCustom
+                  lat={inputs.lat}
+                  lng={inputs.lng}
+                />
               </td>
               <td> </td>
               <td>{inputs.country}</td>

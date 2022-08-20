@@ -102,7 +102,6 @@ export default function CreateConference() {
               </select>
             </label>
           </div>
-
           <div className="mb-3">
             <NavLink to="/" className="save">Save</NavLink>
             <NavLink to="/" className="back">Back</NavLink>
