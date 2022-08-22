@@ -10,8 +10,8 @@ const containerStyle = {
   height: '400px',
 };
 const center = {
-  lat: 47.839,
-  lng: 35.125,
+  lat: 47,
+  lng: 35,
 };
 function GoogleMapCustom(props) {
   const { lat, lng } = props;
@@ -34,7 +34,7 @@ function GoogleMapCustom(props) {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
-      zoom={13}
+      zoom={9}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >

@@ -78,8 +78,12 @@ color: rgb(255, 255, 255);
 }
 
 .edit-conference{
+/* padding: 10px;
+margin-right: 20px; */
+position: relative;
+width: auto;
+margin-left: 20%;
 padding: 10px;
-margin-right: 20px;
 background-color: rgba(154, 180, 250, 0.1);
 border-bottom: 3px solid rgba(154, 180, 250, 0.8);
 color: rgb(154, 180, 250);
@@ -124,7 +128,6 @@ color: rgb(255, 255, 255);
 }
 .delete{
 position: absolute;
-margin-left: 80px;
 color: rgb(250, 154, 202);
 transition: transform 500ms ease;
 }
@@ -152,6 +155,7 @@ color: rgb(255, 255, 255);
 }
 .delete-list{
 position: absolute;
+margin-left: -130px;
 color: rgb(250, 154, 202);
 transition: transform 500ms ease;
 }

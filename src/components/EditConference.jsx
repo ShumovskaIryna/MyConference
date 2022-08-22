@@ -45,7 +45,7 @@ export default function EditConference() {
                 required
                 minLength="2"
                 maxLength="255"
-                value={inputs.name}
+                value={inputs?.name}
               />
             </label>
             <div
@@ -64,7 +64,7 @@ export default function EditConference() {
                 dateFormat: 'Y-m-d',
                 altInput: true,
                 altFormat: 'D, F j, Y',
-                value: inputs.date,
+                value: new Date(inputs.date),
               }}
             />
           </div>
@@ -93,8 +93,8 @@ export default function EditConference() {
               />
             </label>
             <GoogleMapCustom
-              lat={center.lat}
-              lng={center.lng}
+              lat={inputs?.lat}
+              lng={inputs?.lng}
             />
           </div>
           <div className="mb-3">
@@ -106,9 +106,9 @@ export default function EditConference() {
                 aria-label="Default select example"
               >
                 <option
-                  value={inputs.country}
+                  value={inputs?.country}
                 >
-                  {inputs.country}
+                  {inputs?.country}
                 </option>
                 {options.map((option) => (
                   <option
@@ -122,6 +122,9 @@ export default function EditConference() {
           </div>
 
           <div className="mb-3">
+            <FaTrash
+              className="delete"
+            />
             <NavLink
               to="/"
               className="save"
@@ -135,9 +138,6 @@ export default function EditConference() {
             >
               Back
             </NavLink>
-            <FaTrash
-              className="delete"
-            />
           </div>
         </div>
       </form>

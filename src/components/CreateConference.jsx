@@ -51,7 +51,6 @@ export default function CreateConference() {
             <Flatpickr
               className="input"
               id="inputDate"
-              s
               options={{
                 dateFormat: 'Y-m-d',
                 altInput: true,
