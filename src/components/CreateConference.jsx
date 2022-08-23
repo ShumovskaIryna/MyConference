@@ -88,6 +88,7 @@ export default function CreateConference() {
             <GoogleMapCustom
               lat={center.lat}
               lng={center.lng}
+              zoom={6}
             />
           </div>
           <div className="mb-3">

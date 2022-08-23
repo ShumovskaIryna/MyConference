@@ -10,8 +10,8 @@ const containerStyle = {
   height: '400px',
 };
 const center = {
-  lat: 47,
-  lng: 35,
+  lat: 47.839,
+  lng: 35.125,
 };
 function GoogleMapCustom(props) {
   const { lat, lng } = props;
@@ -34,7 +34,7 @@ function GoogleMapCustom(props) {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
-      zoom={9}
+      zoom={6}
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
@@ -43,8 +43,10 @@ function GoogleMapCustom(props) {
         shouldShowMarker ? (
           <MarkerF
             position={{
-              lat: parseInt(lat, 10),
-              lng: parseInt(lng, 10),
+              lat,
+              // : parseInt(lat, 10),
+              lng,
+              // : parseInt(lng, 10),
             }}
           />
         ) : undefined
