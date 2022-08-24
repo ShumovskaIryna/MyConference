@@ -1,78 +1,160 @@
-import React
-, { useState, useEffect, useCallback }
-  from 'react';
-import { NavLink } from 'react-router-dom';
-// import { useParams } from 'react-router-dom';
-// import useHttp from '../useHttp';
-import Flatpickr from 'react-flatpickr';
-// import 'flatpickr/dist/themes/dark.css';
-import { FaTrash } from 'react-icons/fa';
+/* eslint-disable */
 
-import { getConferenceById } from '../request';
-
-export default function EditConference() {
-  // const { id } = useParams();
-  // const { request } = useHttp();
+import React, { useMemo, useState, useEffect, useCallback } from "react";
+import { useParams } from "react-router-dom";
+import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
+import countryList from "react-select-country-list";
+import Flatpickr from "react-flatpickr";
+import validationSchema from "../validation/Conferences";
+import useHttp from "../useHttp";
+import MyCustomMap from "./GoogleMapCustom";
+export default function EditConference(props) {
+  const { id } = useParams();
   const [inputs, setInputs] = useState({});
+  const { request } = useHttp();
+  const navigate = useNavigate();
 
   const getConf = useCallback(async () => {
-    const { data } = await getConferenceById('/api/link/', 'GET', null);
-    const { conference: conferenceToSet } = data;
+    const { data: conferenceToSet } = await request(
+      `api/v1/conferences/get-by-id/${id}`,
+      "GET"
+    );
     setInputs(conferenceToSet);
-  }, [getConferenceById]);
+  }, [request]);
 
   useEffect(() => {
     getConf();
   }, []);
+
+  const countryOptions = useMemo(() => countryList().getData(), []);
+
+  const formik = useFormik({
+    initialValues: {
+      name: inputs.name,
+      date: inputs.date 
+      ? new Date(+inputs.date).toISOString().substring(0, 16) 
+      : new Date().toISOString().substring(0, 16),
+      lat: inputs.lat,
+      lng: inputs.lng,
+      country: inputs.country,
+    },
+    enableReinitialize: true,
+    validationSchema,
+    validateOnChange: false, // this one
+    onSubmit: async (values) => {
+      const convertedValue = {
+        ...values,
+        date: new Date(values.date).getTime()
+      }
+      await request(`/api/v1/conferences/update/${id}`, "PUT", convertedValue);
+      navigate("/", { replace: true });
+    },
+  });
+
+  const shouldShowMap = inputs.lat !== undefined && inputs.lng !== undefined;
+
   return (
     <div>
       <h4>Edit meeting</h4>
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         <div className="container">
           <div className="mb-3">
             <label htmlFor="inputTitle" className="form-label">
               Title
-              <input type="text" className="form-control" id="inputTitle" aria-describedby="titleHelp" value={inputs.name} />
+              <input
+                id="name"
+                name="name"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.name}
+              />
             </label>
-            <div id="titleHelp" className="form-text">Your title must be min 2, max 255 characters long.</div>
-          </div>
-          <div className="mb-3">
-            Date
-            <Flatpickr
-              options={{
-                dateFormat: 'Y-m-d',
-                altInput: true,
-                altFormat: 'D, F j, Y',
-                defaultDate: inputs.date,
-              }}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="inputAddress" className="form-label">
-              Address
-              <input type="number" className="form-control" id="inputAddress" placeholder="Latitude" value={inputs.location?.lat} />
-              <input type="number" className="form-control" id="inputAddress" placeholder="Longitude" value={inputs.location?.lng} />
-            </label>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="inputCountry" className="form-label">
-              Country
-              <input type="text" className="form-control" id="inputCountry" placeholder="Country" value={inputs.country} />
-            </label>
+
+            <div className="text-danger">
+              {formik.errors.name ? formik.errors.name : null}
+            </div>
           </div>
 
           <div className="mb-3">
-            {/* <button type="button" className="btn btn-primary btn-lg">
-              Save
-            </button>
-            <button type="button" className="btn btn-secondary btn-lg">
-              Back
-            </button> */}
-            <NavLink to="/" className="save">Save</NavLink>
-            <NavLink to="/" className="back">Back</NavLink>
-            <FaTrash className="delete" />
+            Date
+            <input 
+              type="datetime-local" 
+              onChange={formik.handleChange}
+              id="date" 
+              name="date"
+              value={formik.values.date}
+              min={new Date().toISOString().substring(0, 16)} 
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="inputAddress" className="form-label">
+              Address
+              <input
+                id="inputAddress"
+                name="lat"
+                type="number"
+                onChange={formik.handleChange}
+                value={formik.values.lat}
+                className="form-control"
+                placeholder="Latitude"
+              />
+              <div className="text-danger">
+                {formik.errors.lat ? formik.errors.lat : null}
+              </div>
+              <input
+                id="inputAddress"
+                name="lng"
+                type="number"
+                onChange={formik.handleChange}
+                value={formik.values.lng}
+                className="form-control"
+                placeholder="Longitude"
+              />
+              <div className="text-danger">
+                {formik.errors.lng ? formik.errors.lng : null}
+              </div>
+            </label>
+           {
+            shouldShowMap 
+              ? <MyCustomMap
+                lat={parseFloat(formik.values.lat)}
+                lng={parseFloat(formik.values.lng)}
+              />
+              : null
+           }
+            
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="inputCountry" className="form-label">
+              Country
+              <select
+                className="form-select"
+                name="country"
+                onChange={formik.handleChange}
+                value={formik.values.country}
+                aria-label="Default select example"
+              >
+                {countryOptions.map((option) => (
+                  <option value={option.label}>{option.label}</option>
+                ))}
+              </select>
+              <div className="text-danger">
+                {formik.errors.country ? formik.errors.country : null}
+              </div>
+            </label>
           </div>
         </div>
+        <div className="mb-3">
+        <button className="save" color="green" type="submit">
+          Save
+        </button>
+        <button className="back" color="green" type="button" onClick={() => { navigate('/', { replace: true }); }}>
+            Back
+          </button>
+          </div>
       </form>
     </div>
   );
