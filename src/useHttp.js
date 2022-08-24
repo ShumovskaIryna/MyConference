@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import { useState, useCallback } from 'react';
-// import getAllConferences from './request';
-import { getAllConferences } from './request';
+
+const baseUrl = process.env.REACT_APP_BASE_URL || 'http://localhost:3002';
 
 const useHttp = () => { // дозволяє працювати з асинхронними запитами на сервер
   const [loading, setLoading] = useState(false);
@@ -15,16 +15,13 @@ const useHttp = () => { // дозволяє працювати з асинхро
         body = JSON.stringify(body);
         headers['Content-Type'] = 'application/json';
       }
-      // const response = await fetch(url, { method, body, headers });
-      const { data } = await getAllConferences();
-      // const { dataE } = await getConferenceById();
+      const response = await fetch(`${baseUrl}/${url}`, { method, body, headers });
+      const jsonResponse = await response.json();
 
-      // if (!response.ok) {
-      // throw new Error(data.message || 'Что-то пошло не так');
-      // }
       setLoading(false);
-      return data;
+      return jsonResponse;
     } catch (e) {
+      console.log(e);
       setLoading(false);
       setError(e.message);
       throw e;

@@ -4,29 +4,37 @@ import { NavLink } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 
 export default function Conference(props) {
-  const { myConference } = props;
+  const { myConference, deleteConf } = props;
+
+  const handelDel = async () => {
+    await deleteConf(myConference.id);
+  };
   return (
     <tbody>
       <tr>
         <th scope="row">{myConference.id}</th>
         <td>
           {' '}
-          <NavLink to="conference/:id/detail" className="list">
+          <NavLink to={`conference/${myConference.id}/detail`} className="list">
             {myConference.name}
           </NavLink>
         </td>
         <td>
-          <NavLink to="conference/:id/detail" className="list">
-            {myConference.date}
+          <NavLink to={`conference/${myConference.id}/detail`} className="list">
+            {new Date(parseInt(myConference.date, 10)).toLocaleDateString()}
           </NavLink>
-
         </td>
         <td>
-          <NavLink to="conference/:id/edit" className="edit-conference">
+          <NavLink
+            to={`conference/${myConference.id}/edit`}
+            className="edit-conference"
+          >
             Edit
           </NavLink>
           <FaTrash
-            className="delete"
+            id={myConference.id}
+            className="delete-list"
+            onClick={handelDel}
           />
         </td>
       </tr>
