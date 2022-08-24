@@ -4,9 +4,8 @@ import React, { useMemo, useState } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 
-import Flatpickr from "react-flatpickr";
 import countryList from "react-select-country-list";
-import MyCustomMap from "./GoogleMapCustom";
+import GoogleMapCustom from "./GoogleMapCustom";
 import useHttp from "../useHttp";
 
 import validationSchema from "../validation/Conferences";
@@ -19,23 +18,27 @@ export default function CreateConference() {
   const formik = useFormik({
     initialValues: {
       name: "",
-      date: new Date().getTime(),
-      lat: "",
-      lng: "",
+      date: new Date().toISOString().substring(0, 16),
+      lat: undefined,
+      lng: undefined,
       country: countryOptions[0].label,
     },
     validationSchema,
     validateOnChange: false, // this one
     // validateOnBlur: false, // and this one
     onSubmit: async (values) => {
-      const response = await request("api/v1/conferences/add", "POST", values);
-      console.log(response);
+      const convertedValue = {
+        ...values,
+        date: new Date(values.date).getTime()
+      }
+      const response = await request("api/v1/conferences/add", "POST", convertedValue);
       const { errors } = response;
       if (!errors) {
         navigate("/", { replace: true });
       }
     },
   });
+  const shouldShowMap = formik.values.lat !== undefined && formik.values.lng !== undefined;
 
   return (
     <div>
@@ -61,20 +64,15 @@ export default function CreateConference() {
 
           <div className="mb-3">
             Date
-            <Flatpickr
-              className="input"
-              id="inputDate"
-              onChange={formik.handleChange}
-              name="date"
-              value={formik.values.date}
-              options={{
-                minDate: "today",
-                dateFormat: "Y-m-d",
-                altInput: true,
-                altFormat: "D, F j, Y",
-                defaultDate: new Date().getTime(),
-              }}
+            <input 
+            type="datetime-local" 
+            onChange={formik.handleChange}
+            id="date" 
+            name="date"
+            value={formik.values.date}
+            min={new Date().toISOString().substring(0, 16)} 
             />
+
           </div>
 
           <div className="mb-3">
@@ -105,7 +103,16 @@ export default function CreateConference() {
                 {formik.errors.lng ? formik.errors.lng : null}
               </div>
             </label>
-            <MyCustomMap lat={formik.values.lat} lng={formik.values.lng} />
+            {
+            shouldShowMap
+              ? (
+                <GoogleMapCustom
+                  lat={parseFloat(formik.values.lat)}
+                  lng={parseFloat(formik.values.lng)}
+                />
+              )
+              : null
+           }
           </div>
 
           <div className="mb-3">

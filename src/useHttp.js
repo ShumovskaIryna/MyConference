@@ -21,7 +21,6 @@ const useHttp = () => { // дозволяє працювати з асинхро
       setLoading(false);
       return jsonResponse;
     } catch (e) {
-      console.log(e);
       setLoading(false);
       setError(e.message);
       throw e;

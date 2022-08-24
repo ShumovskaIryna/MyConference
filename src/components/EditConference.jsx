@@ -32,7 +32,9 @@ export default function EditConference(props) {
   const formik = useFormik({
     initialValues: {
       name: inputs.name,
-      date: inputs.date,
+      date: inputs.date 
+      ? new Date(+inputs.date).toISOString().substring(0, 16) 
+      : new Date().toISOString().substring(0, 16),
       lat: inputs.lat,
       lng: inputs.lng,
       country: inputs.country,
@@ -41,10 +43,16 @@ export default function EditConference(props) {
     validationSchema,
     validateOnChange: false, // this one
     onSubmit: async (values) => {
-      await request(`/api/v1/conferences/update/${id}`, "PUT", values);
+      const convertedValue = {
+        ...values,
+        date: new Date(values.date).getTime()
+      }
+      await request(`/api/v1/conferences/update/${id}`, "PUT", convertedValue);
       navigate("/", { replace: true });
     },
   });
+
+  const shouldShowMap = inputs.lat !== undefined && inputs.lng !== undefined;
 
   return (
     <div>
@@ -70,19 +78,13 @@ export default function EditConference(props) {
 
           <div className="mb-3">
             Date
-            <Flatpickr
-              className="input"
-              id="inputDate"
+            <input 
+              type="datetime-local" 
               onChange={formik.handleChange}
+              id="date" 
               name="date"
-              value={+formik.values.date}
-              options={{
-                minDate: "today",
-                dateFormat: "Y-m-d",
-                altInput: true,
-                altFormat: "D, F j, Y",
-                defaultDate: formik.values.date,
-              }}
+              value={formik.values.date}
+              min={new Date().toISOString().substring(0, 16)} 
             />
           </div>
 
@@ -114,10 +116,15 @@ export default function EditConference(props) {
                 {formik.errors.lng ? formik.errors.lng : null}
               </div>
             </label>
-            <MyCustomMap
-              lat={parseFloat(formik.values.lat)}
-              lng={parseFloat(formik.values.lng)}
-            />
+           {
+            shouldShowMap 
+              ? <MyCustomMap
+                lat={parseFloat(formik.values.lat)}
+                lng={parseFloat(formik.values.lng)}
+              />
+              : null
+           }
+            
           </div>
 
           <div className="mb-3">
@@ -140,12 +147,14 @@ export default function EditConference(props) {
             </label>
           </div>
         </div>
+        <div className="mb-3">
         <button className="save" color="green" type="submit">
           Save
         </button>
         <button className="back" color="green" type="button" onClick={() => { navigate('/', { replace: true }); }}>
             Back
           </button>
+          </div>
       </form>
     </div>
   );

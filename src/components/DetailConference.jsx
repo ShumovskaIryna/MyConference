@@ -18,13 +18,17 @@ export default function DetailConference() {
   useEffect(() => {
     getConf();
   }, []);
+
   const deleteConf = useCallback(async () => {
     await request(`api/v1/conferences/delete/${id}`, 'DELETE', null);
-    getConf();
+    navigate('/', { replace: true });
   });
+
   const handelDel = async () => {
     await deleteConf(inputs.id);
   };
+
+  const shouldShowMap = inputs.lat !== undefined && inputs.lng !== undefined;
   return (
     <div>
       <h4>Detail about meeting</h4>
@@ -46,12 +50,15 @@ export default function DetailConference() {
           <label htmlFor="inputTitle" className="form-label">
             Date
             <input
-              type="text"
-              className="form-control"
-              id="inputTitle"
-              aria-describedby="titleHelp"
+              type="datetime-local"
               disabled
-              value={inputs?.date}
+              id="date"
+              name="date"
+              value={
+                inputs.date
+                  ? new Date(+inputs.date).toISOString().substring(0, 16)
+                  : new Date().toISOString().substring(0, 16)
+              }
             />
           </label>
         </div>
@@ -73,10 +80,16 @@ export default function DetailConference() {
               value={inputs?.lng}
             />
           </label>
-          <GoogleMapCustom
-            lat={inputs?.lat}
-            lng={inputs?.lng}
-          />
+          {
+            shouldShowMap
+              ? (
+                <GoogleMapCustom
+                  lat={parseFloat(inputs.lat)}
+                  lng={parseFloat(inputs.lng)}
+                />
+              )
+              : null
+           }
         </div>
         <div className="mb-3">
           <label htmlFor="inputCountry" className="form-label">
@@ -98,11 +111,11 @@ export default function DetailConference() {
         <div className="mb-3">
           <FaTrash
             id={inputs.id}
-            className="delete-list"
+            className="delete"
             onClick={handelDel}
           />
           <NavLink
-            to="../conference/:id/edit"
+            to={`../conference/${inputs.id}/edit`}
             className="edit-conference"
           >
             Edit

@@ -7,12 +7,12 @@ const validationSchema = Yup.object().shape({
     .min(2, "Name must be at least 2 characters")
     .max(255, "Name must not exceed 255 characters"),
 
-  date: Yup.number()
+  date: Yup.string()
     .required("Date is required")
     .test(
       "Is valid?",
       "Date is required",
-      (value) => new Date(value).getTime() > 0
+      (value) => new Date(value).getTime()
     ),
   lat: Yup.string()
     .required("Lat is required")

@@ -12,6 +12,7 @@ export default function Conferences(props) {
           key={index}
           myConference={conference}
           deleteConf={deleteConf}
+          orderId={index}
         />
       ))}
     </>

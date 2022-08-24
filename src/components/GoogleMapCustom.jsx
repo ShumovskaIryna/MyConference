@@ -10,30 +10,34 @@ const containerStyle = {
   height: '400px',
 };
 const center = {
-  lat: 47.839,
-  lng: 35.125,
+  lat: 0,
+  lng: 0,
 };
 function GoogleMapCustom(props) {
   const { lat, lng } = props;
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyA69OWMQ-Hpg2G4Cwx5rvnDfAnJRxTKpTQ',
   });
 
+  const shouldShowMap = lat !== undefined
+  && lng !== undefined && !Number.isNaN(lat) && !Number.isNaN(lng);
+
   const [map, setMap] = useState(null);
 
   const onLoad = React.useCallback((map) => {
-    const bounds = new window.google.maps.LatLngBounds(center);
+    const bounds = new window.google.maps.LatLngBounds({ lat, lng });
     map.fitBounds(bounds);
     setMap(map);
   }, []);
 
-  const shouldShowMap = lat !== undefined && lng !== undefined;
-
   useEffect(() => {
     if (map && shouldShowMap) {
-      const bounds = new window.google.maps.LatLngBounds();
-      bounds.extend(new window.google.maps.LatLng(lat, lng));
+      const bounds = new window.google.maps.LatLngBounds({
+        lat, lng,
+      });
+      bounds.extend(new window.google.maps.LatLng(parseFloat(lat), parseFloat(lng)));
       map.fitBounds(bounds);
     }
   }, [map]);
@@ -45,10 +49,10 @@ function GoogleMapCustom(props) {
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      zoom={1}
+      zoom={2}
       center={{
-        lat,
-        lng,
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
       }}
       onLoad={onLoad}
       onUnmount={onUnmount}
@@ -57,8 +61,8 @@ function GoogleMapCustom(props) {
       {shouldShowMap ? (
         <MarkerF
           position={{
-            lat,
-            lng,
+            lat: parseFloat(lat),
+            lng: parseFloat(lng),
           }}
         />
       ) : undefined}
