@@ -7,7 +7,9 @@ const initialState = {
 };
 
 // Pure Functions
-export const conferenceReducer = (action, state = initialState) => {
+// eslint-disable-next-line default-param-last
+export const conferenceReducer = (state = initialState, action) => {
+  console.log(action, state);
   switch (action.type) {
     case CREATE_CONFERENCE:
       return { ...state, conferences: state.conferences.concat([action.payload]) };

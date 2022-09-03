@@ -1,6 +1,6 @@
 import { CREATE_CONFERENCE, SHOW_LOADER, HIDE_LOADER, HIDE_ALERT, REQUEST_CONFERENCES, SHOW_ALERT } from './types';
 
-export function createPost(conference) {
+export function createConference(conference) {
   return {
     type: CREATE_CONFERENCE,
     payload: conference,

@@ -46,7 +46,7 @@ export default function ConferenceList() {
             <th scope="col"> </th>
           </tr>
         </thead>
-        <Conferences allConferences={conferences} deleteConf={deleteConf} />
+        <Conferences deleteConf={deleteConf} />
       </table>
       <NavLink to="conference/create" className="new-conference">
         + New conference

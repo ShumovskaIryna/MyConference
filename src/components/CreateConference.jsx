@@ -4,20 +4,21 @@ import React, { useMemo, useState } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 
+import {createConference} from '../redux/actions'
 import countryList from "react-select-country-list";
 import GoogleMapCustom from "./GoogleMapCustom";
 import useHttp from "../useHttp";
-
+import {connect} from 'react-redux'
 import validationSchema from "../validation/Conferences";
 
-export default function CreateConference() {
+function CreateConference() {
   const countryOptions = useMemo(() => countryList().getData(), []);
   const navigate = useNavigate();
   const { request } = useHttp();
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      name: "", 
       date: new Date().toISOString().substring(0, 16),
       lat: undefined,
       lng: undefined,
@@ -147,3 +148,7 @@ export default function CreateConference() {
     </div>
   );
 }
+const mapDispatchToProps = {
+createConference
+}
+export default connect(null, mapDispatchToProps)(CreateConference);
